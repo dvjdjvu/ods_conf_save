@@ -398,14 +398,21 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
                 QString task = getURIParam(_req, "task");
                 QString key  = getURIParam(_req, "key");
                 QString val  = getURIParam(_req, "val");
-                //QString taskKey = getTaskKey(task, key);
                 
                 updateTaskKey(task, val, key);
                 
-                //str += taskKey + "\n";
+                break;
+            }
+            if (funct == "add_record") {
+                QString task = getURIParam(_req, "task");
+                QString key  = getURIParam(_req, "key");
+                QString val  = getURIParam(_req, "val");
+                
+                addRecord(task, val, key);
                 
                 break;
             }
+            
         } while (0);
         
         
