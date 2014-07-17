@@ -33,12 +33,31 @@ OdsConfSaveImpl::~OdsConfSaveImpl()
 bool 
 OdsConfSaveImpl::addRecord(QString task, QString value, QString key)
 {   
-    // Добавление записи.
-    IObject obj = this->ioMgr.createIObject(QString("$$$Системные ИО.Настройка"));
-    obj.setAttr("Задача", task);
-    obj.setAttr("Значение", value);
-    obj.setAttr("Ключ", key);
-    return this->ioMgr.saveIObject(obj);
+    do {
+        IObjectCursor cursor = this->ioMgr.getIObjects(QString("$$$Системные ИО.Настройка"));
+        if (!cursor.isValid()) {
+            break;
+        }
+        
+        IObjectCursor::iterator it = cursor.begin();
+        while (it != cursor.end()) {
+            IObject obj = *it;
+            if (obj.getStringAttr("Задача") == task && obj.getStringAttr("Ключ") == key) {            
+                return false;
+            }
+            it++;
+        }
+        
+        // Добавление записи.
+        IObject obj = this->ioMgr.createIObject(QString("$$$Системные ИО.Настройка"));
+        obj.setAttr("Задача", task);
+        obj.setAttr("Значение", value);
+        obj.setAttr("Ключ", key);
+        return this->ioMgr.saveIObject(obj);
+        
+    } while(0);
+    
+    return false;
 }
 
 bool 
@@ -52,7 +71,7 @@ OdsConfSaveImpl::delTask(QString task)
 bool 
 OdsConfSaveImpl::delTaskKey(QString task, QString key)
 {
-    QString del = "\"Задача\" = '" + task + "'" + key + "' and \"Ключ\" = '" + key + "'";
+    QString del = "\"Задача\" = '" + task + "' and \"Ключ\" = '" + key + "'";
     return this->ioMgr.deleteIObjectByCondition(QString("$$$Системные ИО.Настройка"), del);
 }
 
@@ -81,9 +100,27 @@ OdsConfSaveImpl::updateTaskKey(QString task, QString value, QString key)
     //return this->ioMgr.updateIObject(obj);
     //return this->ioMgr.updateIObject(obj, )
     
-    delTaskKey(task, key);
+    do {
+        IObjectCursor cursor = this->ioMgr.getIObjects(QString("$$$Системные ИО.Настройка"));
+        if (!cursor.isValid()) {
+            break;
+        }
+        
+        IObjectCursor::iterator it = cursor.begin();
+        while (it != cursor.end()) {
+            IObject obj = *it;
+            if (obj.getStringAttr("Задача") == task && obj.getStringAttr("Ключ") == key) {            
+                obj.setAttr("Задача", task);
+                obj.setAttr("Значение", value);
+                obj.setAttr("Ключ", key);
+                this->ioMgr.updateIObject(obj);
+                return true;
+            }
+            it++;
+        }
+    } while(0);
     
-    return addRecord(task, value, key);
+    return false;
 }
 
 QStringList 
@@ -363,7 +400,7 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
                 QString val  = getURIParam(_req, "val");
                 //QString taskKey = getTaskKey(task, key);
                 
-                //updateTaskKey(task, val, key);
+                updateTaskKey(task, val, key);
                 
                 //str += taskKey + "\n";
                 

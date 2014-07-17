@@ -22,6 +22,7 @@ public:
     OdsConfSaveImpl();
     ~OdsConfSaveImpl();
     bool getResponce(const HttpRequest& _req, HttpResponce* _res);
+    
     bool addRecord(QString task, QString value, QString key);
     bool delTask(QString task);
     bool delTaskKey(QString task, QString key);
