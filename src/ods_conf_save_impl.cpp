@@ -161,7 +161,7 @@ OdsConfSaveImpl::getTask(QString task)
         while (it != cursor.end()) {
             IObject obj = *it;
             if (obj.getStringAttr("Задача") == task) {
-                Task << ("{\"task:\" \"" + obj.getStringAttr("Задача") + "\", \"val:\" \"" + obj.getStringAttr("Значение") + "\", \"key:\" \"" + obj.getStringAttr("Ключ") + "\"}"); 
+                Task << ("{\"task\": \"" + obj.getStringAttr("Задача") + "\", \"val\": \"" + obj.getStringAttr("Значение") + "\", \"key\": \"" + obj.getStringAttr("Ключ") + "\"}"); 
             }
             it++;
         }
