@@ -48,7 +48,9 @@ HEADERS += src/ods_conf_save.h \
 LIBS += -lOdsInterface \
     -L/usr/local/ods/lib \
     -L/usr/odsAppSrv/tools/qjson/lib \
-    -lqjson
+    -lqjson \
+    -L/usr/local/lib/OdsConf/ \
+    -lOdsConf
 DESTDIR += lib
 QT -= gui
 OPENEDFILES += src/ods_conf_save.h \

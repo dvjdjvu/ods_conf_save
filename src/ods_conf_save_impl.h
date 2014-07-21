@@ -10,6 +10,8 @@
 #include "serializer.h"
 #include "parser.h"
 
+#include <OdsConf/OdsConf.h>
+
 #include <IObjectScheme>
 
 using namespace ODS;
@@ -38,8 +40,6 @@ public:
     
     QString getURIFunct(QString uri);
     QString getURIParam(const HttpRequest& _req, QString par);
-    
-    void handler();
 
 private:
     ODS::OdsInterface* odsIface; 
@@ -53,6 +53,8 @@ private:
     QVariantMap query;
     QVariantMap response;
     QVariantMap error;
+    
+    OdsConf Conf;
 };
 
 #endif // ODS_CONF_SAVE_IMPL_H
