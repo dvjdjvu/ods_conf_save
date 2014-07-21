@@ -11,15 +11,6 @@
 #include <QDomElement>
 
 
-/* Коды ошибок
-   0 - всё хорошо
-   1 - bad request (request is not valid)
-   2 - connection error (OdsInterface == NULL)
-   3 - JSON query parse error
-   4 - Unknown action
-   5 - config file error
-*/
-
 OdsConfSaveImpl::OdsConfSaveImpl()
 {
     
@@ -84,8 +75,8 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
         {
             _res->addHeader("Content-Language",  "en,ru");
             _res->addHeader("Content-Type",  "application/json; charset=utf8");
-            _res->addBody("this->odsIface == NULL");
-            return false;
+            str = "this->odsIface == NULL";
+            break;
         }
         
         this->Conf.init(QString("192.168.5.198"), QString("iksori_db"), QString("postgres"), QString("1"), QString("$$$Системные ИО"), QString("Настройка"));
@@ -189,9 +180,6 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
     
     _res->addHeader("Content-Language",  "en,ru");
     _res->addHeader("Content-Type",  "application/json; charset=utf8");
-    //_res->addBody("{\"cats\": \"all ok\"}");
-    
-    
     _res->addBody(str);
 
     return false;
