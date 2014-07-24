@@ -3,7 +3,8 @@
 1. Для работы необходима библиотека:
     libodsconf, подключается -lOdsConf
 
-    http://192.168.115.200/djvu/ods_conf
+    Где взять:
+        http://192.168.115.200/djvu/ods_conf
 
 2. Операции модуля:
 
@@ -26,7 +27,7 @@
     2.3: get_task_key, определенная настройка по определенной задачи.
 
         Запрос
-            http://servpri1.ka787.kw787.tex/ods/conf/get_task?task=TaskName&key=KeyName , 
+            http://servpri1.ka787.kw787.tex/ods/conf/get_task_key?task=TaskName&key=KeyName , 
                 где TaskName имя задачи например "ПК ВО", имя задачи передается без кавычек!
                 KeyName имя настройки, например "Пороговое время актуальности данных", передается без кавычек:
                     key=Пороговое время актуальности данных
