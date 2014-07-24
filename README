@@ -1,0 +1,58 @@
+Модуль сохранения настроек.
+
+1. Для работы необходима библиотека:
+    libodsconf, подключается -lOdsConf
+
+    http://192.168.115.200/djvu/ods_conf
+
+2. Операции модуля:
+
+    2.1: get_all, все настройки хранящиеся в базе.
+
+        Запрос 
+            http://servpri1.ka787.kw787.tex/ods/conf/get_all 
+        Ответ  
+            var records = {"records": [{"task": "String", "val": "String", "key": "String"}, ... , {"task": "String", "val": "String", "key": "String"}]};
+        
+    2.2: get_task, настройки по определенной задачи.
+
+        Запрос
+            http://servpri1.ka787.kw787.tex/ods/conf/get_task?task=TaskName , 
+                где TaskName имя задачи например "ПК ВО", имя задачи передается без кавычек!
+                    task=ПК ВО
+        Ответ  
+            var records = {"records": [{"task": "String", "val": "String", "key": "String"}, ... , {"task": "String", "val": "String", "key": "String"}]};        
+
+    2.3: get_task_key, определенная настройка по определенной задачи.
+
+        Запрос
+            http://servpri1.ka787.kw787.tex/ods/conf/get_task?task=TaskName&key=KeyName , 
+                где TaskName имя задачи например "ПК ВО", имя задачи передается без кавычек!
+                KeyName имя настройки, например "Пороговое время актуальности данных", передается без кавычек:
+                    key=Пороговое время актуальности данных
+        Ответ
+            var val = "String";
+
+     2.4: get_task_list, список задач чьи настройки хранятся в базе
+
+        Запрос
+            http://servpri1.ka787.kw787.tex/ods/conf/get_task_list 
+        Ответ
+            var tasks = ["String", ... , "String"];
+
+     2.5: update_task_key, обновление настройки хранящейся в базе. 
+        Если настройка существует, она обновится. Если нет ни чего не произойдет.
+
+        Запрос
+            http://servpri1.ka787.kw787.tex/ods/conf/update_task_key?task=TaskName&key=KeyName&val=NewVal ,
+                где NewVal новое значение.
+        Ответ 
+            200 код
+
+     2.6: add_record, добавление новой настройки
+        Если настройки нет, она создатся. Если есть ни чего не произойдет.
+
+        Запрос
+            http://servpri1.ka787.kw787.tex/ods/conf/add_record?task=TaskName&key=KeyName&val=Val ,
+        Ответ 
+            200 код

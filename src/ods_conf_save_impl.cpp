@@ -24,7 +24,7 @@ OdsConfSaveImpl::~OdsConfSaveImpl()
 QString 
 OdsConfSaveImpl::getURIFunct(QString uri)
 {
-    QRegExp rx("\\/(\\w+)[\\?|\\z]");
+    QRegExp rx("\\/(\\w+)[\\?|\\z|$|\\Z]");
     
     int pos = rx.indexIn(uri);
     if (pos > -1) {
@@ -82,8 +82,8 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
         this->Conf.init(QString("192.168.5.198"), QString("iksori_db"), QString("postgres"), QString("1"), QString("$$$Системные ИО"), QString("Настройка"));
         this->Conf.connect(this->odsIface);
         
-        QString funct = getURIFunct(QString(_req.getURI()));
-    
+        QString funct = getURIFunct(QString(_req.getURI()) + "?");
+        
         do {
             if (funct == "/") {
                 break;
