@@ -1,0 +1,8 @@
+Package: libodsconfsave
+Version: 1.0
+Section: libs
+Architecture: amd64
+Depends: libodsconf (>= 1.0)
+Maintainer: Jessy James <djvu@inbox.ru>
+Description: Модуль сохранения настроек приложений
+ Модуль сервера приложений.
