@@ -48,7 +48,7 @@
             http://servpri1.ka787.kw787.tex/ods/conf/update_task_key?task=TaskName&key=KeyName&val=NewVal ,
                 где NewVal новое значение.
         Ответ 
-            200 код
+            var op = "1"; или var op = "0"; Взависимости от того успешно выполнена операция или нет.
 
      2.6: add_record, добавление новой настройки
         Если настройки нет, она создатся. Если есть ни чего не произойдет.
@@ -56,4 +56,4 @@
         Запрос
             http://servpri1.ka787.kw787.tex/ods/conf/add_record?task=TaskName&key=KeyName&val=Val ,
         Ответ 
-            200 код
+            var op = "1"; или var op = "0"; Взависимости от того успешно выполнена операция или нет.

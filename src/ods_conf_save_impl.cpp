@@ -86,6 +86,7 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
         
         do {
             if (funct == "/") {
+                str += "It's work!";
                 break;
             }
             if (funct == "get_all") {
@@ -151,7 +152,7 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
                 QString key  = getURIParam(_req, "key");
                 QString val  = getURIParam(_req, "val");
                 
-                this->Conf.updateTaskKey(task, val, key);
+                str += "var op = \"" + QString::number(this->Conf.updateTaskKey(task, val, key)) + "\";";
                 
                 break;
             }
@@ -160,7 +161,7 @@ OdsConfSaveImpl::getResponce(const HttpRequest& _req, HttpResponce* _res)
                 QString key  = getURIParam(_req, "key");
                 QString val  = getURIParam(_req, "val");
                 
-                this->Conf.addRecord(task, val, key);
+                str += "var op = \"" + QString::number(this->Conf.addRecord(task, val, key)) + "\";";
                 
                 break;
             }
